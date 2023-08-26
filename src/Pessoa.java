@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collections;
     public class Pessoa implements Comparable<Pessoa> {
 
@@ -19,6 +20,10 @@ import java.util.Collections;
             return dataDeNascimento;
         }
 
+        public int getIdade(){
+            return Period.between(this.dataDeNascimento,LocalDate.now()).getYears();
+        }
+
         @Override
         public String toString() {
             return "Pessoa{" +
@@ -30,7 +35,8 @@ import java.util.Collections;
         // Fazer a classe Pessoa ser ordenada pelos nomes das pessoas
         @Override
         public int compareTo(Pessoa pessoa) {
-            return nome.compareTo(pessoa.getNome());
+            Integer idade = getIdade();
+            return idade.compareTo(pessoa.getIdade());
         }
     }
 
