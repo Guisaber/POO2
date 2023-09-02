@@ -51,9 +51,7 @@ public class Sorteador<T> {
         return grupos;
     }
 
-    private boolean possuiElementos() {
-        return !elementos.isEmpty();
-    }
+
 
     private  List<Grupo<T>> inicializarGrupos(int numeroDeGruposEsperados) {
         List<Grupo<T>> grupos = new ArrayList<>();

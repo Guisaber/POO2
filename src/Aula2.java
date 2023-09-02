@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Aula2 {
     public static void main(String[] args) {
         Pessoa pessoa1 = new Pessoa ("Guilherme", LocalDate.of(1997, Month.MARCH, 9));
-        Pessoa pessoa2 = new Pessoa ("Isabella", LocalDate.of(1998, Month.MARCH, 29));
+        Pessoa pessoa2 = new Pessoa ("Isabella", LocalDate.of(1997, Month.MARCH, 9));
         Pessoa pessoa3 = new Pessoa ("Fabio", LocalDate.of(1996, Month.MARCH, 4));
         Pessoa [] pessoas = {pessoa1,pessoa2,pessoa3};
         Arrays.sort(pessoas);

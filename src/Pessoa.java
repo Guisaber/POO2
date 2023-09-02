@@ -36,7 +36,11 @@ import java.util.Collections;
         @Override
         public int compareTo(Pessoa pessoa) {
             Integer idade = getIdade();
-            return idade.compareTo(pessoa.getIdade());
+            int result = idade.compareTo(pessoa.getIdade());
+            if (result == 0) {
+                return nome.compareTo(pessoa.getNome());
+            }
+            return  result;
         }
     }
 
