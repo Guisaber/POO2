@@ -1,11 +1,13 @@
 package ProjetoPoo2;
 
-public class pessoa {
+public class Pessoa {
 
     private String nome;
     private String endereco;
 
-    public pessoa(String nome, String endereco){
+    public Pessoa(){}
+
+    public Pessoa(String nome, String endereco){
         this.nome = nome;
         this.endereco = endereco;
     }

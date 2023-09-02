@@ -3,12 +3,15 @@ package ProjetoPoo2;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class pessoaFisica extends pessoa{
+public class PessoaFisica extends Pessoa {
 
     private String cpf;
     private LocalDate dataDeNascimento;
 
-    public pessoaFisica(String nome, String endereco, String cpf) {
+    public PessoaFisica (){
+        super();
+    }
+    public PessoaFisica(String nome, String endereco, String cpf) {
         super(nome, endereco);
         this.cpf = cpf;
     }
