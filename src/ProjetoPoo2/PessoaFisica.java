@@ -11,12 +11,13 @@ public class PessoaFisica extends Pessoa {
     public PessoaFisica (){
         super();
     }
-    public PessoaFisica(String nome, String endereco, String cpf) {
+    public PessoaFisica(String nome, String endereco, String cpf, LocalDate dataDeNascimento) {
         super(nome, endereco);
         this.cpf = cpf;
+        this.dataDeNascimento = dataDeNascimento;
     }
 
-    public String getCpf(String cpf){
+    public String getCpf(){
         return this.cpf;
     }
 
