@@ -32,7 +32,7 @@ public class Menu {
         data =  entrada.next();
         dataDeNascimento = TransformarDataDeNascimento(data);
 
-        CadastroPessoa cadastroPessoa = new CadastroPessoa();
+        CadastroPessoaFisica cadastroPessoa = new CadastroPessoaFisica();
         retorno = cadastroPessoa.cadastrarPessoa(nome,endereco,cpf,dataDeNascimento);
         if (retorno) {
             return true;

@@ -10,21 +10,7 @@ public class PessoaFisica extends Pessoa {
     private LocalDate dataDeNascimento;
 
 
-        public ArrayList<PessoaFisica> pessoaFisica = new ArrayList<>();
-
-        public PessoaFisica(ArrayList<PessoaFisica> pessoaFisica) {
-            this.pessoaFisica = pessoaFisica;
-        }
-        public void adicionarPessoa (PessoaFisica pessoa){
-            pessoaFisica.add(pessoa);
-        }
-        public int retornarTamanhoPF (){
-            return pessoaFisica.size();
-        }
-
-        public PessoaFisica retornarElemento (int indice){
-            return  pessoaFisica.get(indice);
-        }
+    public ArrayList<PessoaFisica> pessoaFisica = new ArrayList<>();
 
     public PessoaFisica (){
         super();
