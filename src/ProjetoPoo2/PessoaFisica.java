@@ -2,11 +2,29 @@ package ProjetoPoo2;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 
 public class PessoaFisica extends Pessoa {
 
     private String cpf;
     private LocalDate dataDeNascimento;
+
+
+        public ArrayList<PessoaFisica> pessoaFisica = new ArrayList<>();
+
+        public PessoaFisica(ArrayList<PessoaFisica> pessoaFisica) {
+            this.pessoaFisica = pessoaFisica;
+        }
+        public void adicionarPessoa (PessoaFisica pessoa){
+            pessoaFisica.add(pessoa);
+        }
+        public int retornarTamanhoPF (){
+            return pessoaFisica.size();
+        }
+
+        public PessoaFisica retornarElemento (int indice){
+            return  pessoaFisica.get(indice);
+        }
 
     public PessoaFisica (){
         super();

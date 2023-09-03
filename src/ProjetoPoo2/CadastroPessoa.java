@@ -6,24 +6,25 @@ import java.util.List;
 
 public class CadastroPessoa {
     //nao esta funcionando a validação
-
+   PessoaFisica listPessoa = new PessoaFisica();
     public boolean cadastrarPessoa(String nome, String endereco, String cpfRecebido, LocalDate dataDeNascimento) {
             String verificadorCpf;
             String cpf;
             int auxiliar = 0;
             PessoaFisica pessoaFisica;
-            List<PessoaFisica> listPessoa = new ArrayList();
-            for (int i = 0; i < listPessoa.size(); i++) {
-                PessoaFisica pessoa = listPessoa.get(i);
-                cpf = pessoa.getCpf();
-                if (cpf.equals(cpfRecebido)) {
-                    auxiliar = 1;
-                    return false;
+            System.out.println(listPessoa.retornarTamanhoPF());
+                for (int i = 0; i < listPessoa.retornarTamanhoPF(); i++) {
+                    System.out.println("entrou");
+                    PessoaFisica pessoa = listPessoa.retornarElemento(i);
+                    cpf = pessoa.getCpf();
+                    if (cpf.equals(cpfRecebido)) {
+                        return false;
+                    }
                 }
-            }
+
             if (auxiliar == 0) {
                 pessoaFisica = new PessoaFisica(nome, endereco, cpfRecebido, dataDeNascimento);
-                listPessoa.add(pessoaFisica);
+                listPessoa.adicionarPessoa(pessoaFisica);
                 return true;
             }
     return false;

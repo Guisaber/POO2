@@ -28,7 +28,7 @@ public class Menu {
         endereco = entrada.nextLine();
         System.out.print("\nDigite seu cpf: ");
         cpf = entrada.next();
-        System.out.print("\nEntre com a data de nascimento (dd/mm/yyyy): ");
+        System.out.print("\nEntre com a data de nascimento (dd/mm/yyyy): \n");
         data =  entrada.next();
         dataDeNascimento = TransformarDataDeNascimento(data);
 
