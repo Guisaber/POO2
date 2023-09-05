@@ -14,12 +14,12 @@ public class Main {
                 case 1:
                     menu.exibirMenuCadastroPessoa();
                     opcao = entrada.nextInt();
-                    switch (opcao) {
-                        case 1:
+                    if (opcao == 1){
                             boolean resultadoCadastro;
                             resultadoCadastro = menu.cadastroPessoaFisica(cadastroPessoa);
                             if (resultadoCadastro) {
                                 System.out.println("Cadastro realizado com sucesso!\n");
+                                PessoaFisicaRepositorio.listarPessoas(); //falta fazer isso funcionar
                             } else {
                                 System.out.println("Cpf existente na base\n");
                             }
@@ -29,8 +29,7 @@ public class Main {
                 case 2:
                     menu.exibirMenuCadastroPessoa();
                     opcao = entrada.nextInt();
-                    switch (opcao) {
-                        case 1:
+                        if (opcao == 1){
                             boolean alterado;
                             alterado = menu.alteracaoPessoaFisica(cadastroPessoa);
                             if (alterado) {
@@ -38,7 +37,6 @@ public class Main {
                             }
                             break;
                     }//termina o switch interno
-
             }//switch principal acaba aqui
 
 
