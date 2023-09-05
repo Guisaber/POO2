@@ -10,7 +10,7 @@ public class PessoaFisica extends Pessoa {
     private LocalDate dataDeNascimento;
 
 
-    public ArrayList<PessoaFisica> pessoaFisica = new ArrayList<>();
+
 
     public PessoaFisica (){
         super();
@@ -33,6 +33,10 @@ public class PessoaFisica extends Pessoa {
 
     public void setDataDeNascimento(String dataDeNascimento){
         this.dataDeNascimento = LocalDate.parse(dataDeNascimento);
+    }
+
+    public void setDataDeNascimento(LocalDate dataDeNascimento){
+        this.dataDeNascimento =dataDeNascimento;
     }
 
     public LocalDate getDataDeNascimento() {

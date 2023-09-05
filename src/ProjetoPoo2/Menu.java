@@ -5,23 +5,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Menu {
-
+    String nome;
+    String endereco;
+    String cpf;
+    String data;
+    LocalDate dataDeNascimento;
+    boolean retorno;
     public void exibirMenuInicial() {
+        System.out.println("0 - Encerrar programa");
         System.out.println("1 - Cadastrar pessoa");
         System.out.println("2 - Modificar pessoa");
     }
-    public void exibirMenuCadastroPessoa (){
+
+    public void exibirMenuCadastroPessoa() {
         System.out.println("1 - Pessoa física");
         System.out.println("1 - Pessoa Jurídica");
     }
-    public boolean cadastroPessoaFisica(){
+
+    public boolean cadastroPessoaFisica(CadastroPessoaFisica cadastroPessoa) {
         Scanner entrada = new Scanner(System.in);
-        String nome;
-        String endereco;
-        String cpf;
-        String data;
-        LocalDate dataDeNascimento;
-        boolean retorno;
+
         System.out.print("Digite seu nome: ");
         nome = entrada.nextLine();
         System.out.print("\nDigite seu endereço: ");
@@ -29,25 +32,50 @@ public class Menu {
         System.out.print("\nDigite seu cpf: ");
         cpf = entrada.next();
         System.out.print("\nEntre com a data de nascimento (dd/mm/yyyy): \n");
-        data =  entrada.next();
+        data = entrada.next();
         dataDeNascimento = TransformarDataDeNascimento(data);
-
-        CadastroPessoaFisica cadastroPessoa = new CadastroPessoaFisica();
-        retorno = cadastroPessoa.cadastrarPessoa(nome,endereco,cpf,dataDeNascimento);
+        retorno = cadastroPessoa.cadastrarPessoa(nome, endereco, cpf, dataDeNascimento);
         if (retorno) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 
     }
-    LocalDate TransformarDataDeNascimento(String input) {
-        try (Scanner scanner = new Scanner(input)) {
-            String dateString = scanner.next();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(dateString, formatter);
+
+    public boolean alteracaoPessoaFisica(CadastroPessoaFisica cadastroPessoa) {
+        Scanner entrada = new Scanner(System.in);
+        String cpfDigitado;
+        System.out.print("Digite o CPF que deseja realizar alteracao: ");
+        cpfDigitado = entrada.nextLine();
+        boolean existeCpf = cadastroPessoa.consultarSeCpfExiste(cpfDigitado);
+        if(existeCpf) {
+            System.out.print("Digite o nome atualizado: ");
+            nome = entrada.nextLine();
+            System.out.print("\nDigite o endereço atualizado: ");
+            endereco = entrada.nextLine();
+            System.out.print("\nDigite o cpf atualizado: ");
+            cpf = entrada.next();
+            System.out.print("\nEntre com a data de nascimento atualizada (dd/mm/yyyy): \n");
+            data = entrada.next();
+            dataDeNascimento = TransformarDataDeNascimento(data);
+            retorno = cadastroPessoa.alterarPessoa(nome, endereco, cpf, dataDeNascimento);
+            if (retorno) {
+                return true;
+            }
+            }else{
+            System.out.println("Cpf Não encontrado.");
+        }
+        return false;
+        }
+
+        LocalDate TransformarDataDeNascimento (String input){
+            try (Scanner scanner = new Scanner(input)) {
+                String dateString = scanner.next();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                return LocalDate.parse(dateString, formatter);
+            }
         }
     }
-    }
+
 
