@@ -47,4 +47,9 @@ public class PessoaFisica extends Pessoa {
         return Period.between(dataDeNascimento, LocalDate.now()).getYears();
     }
 
+    @Override
+    public String toString() {
+        return " Nome: " +getNome()+ "\n CPF: " +cpf+ "\n Endereço: " +getEndereco()+ "\n Idade: " +getIdade() + "\n";
+    }
+
 }

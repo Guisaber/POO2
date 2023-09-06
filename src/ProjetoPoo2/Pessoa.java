@@ -12,11 +12,11 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    public String getNome(String nome){
+    public String getNome(){
         return this.nome;
     }
 
-    public String getEndereco(String Endereco){
+    public String getEndereco(){
         return this.endereco;
     }
 

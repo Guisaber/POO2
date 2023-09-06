@@ -7,9 +7,9 @@ public class PessoaFisicaRepositorio {
 
 //falta fazer o listarPessoas funcionar.
    public static void listarPessoas (){
-      for (int i = 0; i < pessoaFisica.size(); i++) {
-         PessoaFisica pessoa = pessoaFisica.get(i);
-         System.out.println(pessoaFisica.toString());
+      System.out.println("Lista de pessoas cadastradas:");
+      for (PessoaFisica pf:pessoaFisica){
+         System.out.println(pf);
       }
    }
 }
