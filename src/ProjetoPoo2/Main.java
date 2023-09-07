@@ -64,6 +64,9 @@ public class Main {
                     PessoaFisicaRepositorio.listarPessoas();
                 case 4:
                     PessoaJuridicaRepositorio.listarPessoasJuridicas();
+                case 5:
+
+
             }//switch principal acaba aqui
 
 
