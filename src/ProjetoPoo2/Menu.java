@@ -31,7 +31,7 @@ public class Menu <T> {
         String nomeDoCarro, local;
         System.out.println("Digite seu CPF ou CNPJ (Somente números)");
         cpfOuCnpj = entrada.next();
-        if (cpfOuCnpj.length() == 11) {
+        if (Pessoa.VerificarPessoa(cpfOuCnpj)) {
             CadastroPessoaFisica cadastroPessoaFisica = new CadastroPessoaFisica();
             if (cadastroPessoaFisica.consultarSeCpfExiste(cpf)) {
                 PessoaFisica pessoa = cadastroPessoaFisica.consultarPessoaFisica(cpfOuCnpj);
@@ -39,7 +39,7 @@ public class Menu <T> {
                 System.out.println("Cpf inválido");
             }
 
-        } else if (cpfOuCnpj.length() == 14) {
+        } else if (!Pessoa.VerificarPessoa(cpfOuCnpj)) {
             CadastroPessoaJuridica cadastroPessoaJuridica = new CadastroPessoaJuridica();
             if (cadastroPessoaJuridica.consultarSeCnpjExiste(cpfOuCnpj)) {
                 PessoaJuridica pessoa = cadastroPessoaJuridica.consultarPessoaJuridica(cpfOuCnpj);
@@ -50,6 +50,7 @@ public class Menu <T> {
         }
         System.out.println("Digite o nome do carro desejado: ");
         nomeDoCarro = entrada.next();
+
         System.out.println("Digite o Local de retirada do veículo: ");
         local = entrada.next();
         System.out.println("Digite o dia e horario desejado: ");

@@ -15,9 +15,15 @@ public class CadastroPessoaJuridica extends PessoaJuridicaRepositorio {
                         return false;
                     }
                 }
-                 PessoaJuridica empresa = new PessoaJuridica(nome, endereco, cnpjRecebido);
-                 pessoaJuridicarep.add(empresa);
-                return true;
+                if (cnpjRecebido.length()==14) {
+                    PessoaJuridica empresa = new PessoaJuridica(nome, endereco, cnpjRecebido);
+                    pessoaJuridicarep.add(empresa);
+                    return true;
+                }else{
+                    System.out.println("Cnpj não tem 14 digitos");
+                    return false;
+                }
+
 
     }
 

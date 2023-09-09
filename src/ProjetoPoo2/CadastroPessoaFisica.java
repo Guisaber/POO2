@@ -15,9 +15,14 @@ public class CadastroPessoaFisica extends PessoaFisicaRepositorio {
                         return false;
                     }
                 }
-                 PessoaFisica Pessoa = new PessoaFisica(nome, endereco, cpfRecebido, dataDeNascimento);
-                 pessoaFisica.add(Pessoa);
-                return true;
+                if (cpfRecebido.length()==11) {
+                    PessoaFisica Pessoa = new PessoaFisica(nome, endereco, cpfRecebido, dataDeNascimento);
+                    pessoaFisica.add(Pessoa);
+                    return true;
+                }else{
+                    System.out.println("Cpf não tem 11 digitos");
+                    return false;
+                }
 
     }
 

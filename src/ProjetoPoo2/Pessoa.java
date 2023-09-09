@@ -12,6 +12,15 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
+    public static boolean VerificarPessoa(String numero) {
+        if (numero.length() == 11) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public String getNome(){
         return this.nome;
     }
