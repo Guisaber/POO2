@@ -8,7 +8,6 @@ public class Main {
         CadastroPessoaFisica cadastroPessoa = new CadastroPessoaFisica();
         CadastroPessoaJuridica cadastroEmpresa = new CadastroPessoaJuridica();
         AluguelVeiculosRepositorio aluguelVeiculos = new AluguelVeiculosRepositorio();
-        AluguelVeiculos teste = AluguelVeiculosRepositorio.removerAluguel();
         CadastroAluguel cadastroAluguel = new CadastroAluguel();
         boolean alterado;
         Menu menu = new Menu();

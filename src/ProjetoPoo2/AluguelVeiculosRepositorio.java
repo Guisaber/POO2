@@ -13,8 +13,8 @@ public class AluguelVeiculosRepositorio {
         }
     }
 
-    public static AluguelVeiculos removerAluguel(){
-        return aluguelVeiculos.remove(0);
-    }
+    //public static AluguelVeiculos removerAluguel(){
+   //     return aluguelVeiculos.remove(0);
+  //  }
 
 }
