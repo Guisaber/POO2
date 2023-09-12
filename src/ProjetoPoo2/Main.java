@@ -1,11 +1,16 @@
 package ProjetoPoo2;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
         CadastroPessoaFisica cadastroPessoa = new CadastroPessoaFisica();
         CadastroPessoaJuridica cadastroEmpresa = new CadastroPessoaJuridica();
+        AluguelVeiculosRepositorio aluguelVeiculos = new AluguelVeiculosRepositorio();
+        AluguelVeiculos teste = AluguelVeiculosRepositorio.removerAluguel();
+        CadastroAluguel cadastroAluguel = new CadastroAluguel();
+        boolean alterado;
         Menu menu = new Menu();
         int opcao;
         do {
@@ -39,7 +44,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    boolean alterado;
+
                     menu.exibirMenuCadastroPessoa();
                     opcao = entrada.nextInt();
                         if (opcao == 1){
@@ -62,10 +67,20 @@ public class Main {
                     break;
                 case 3:
                     PessoaFisicaRepositorio.listarPessoas();
+                    break;
                 case 4:
                     PessoaJuridicaRepositorio.listarPessoasJuridicas();
+                    break;
                 case 5:
-
+                    alterado = menu.formulárioAluguelVeiculo(cadastroAluguel);
+                    if (alterado) {
+                        System.out.println("Aluguel realizado com sucesso");
+                        AluguelVeiculosRepositorio.listarAlugueis();
+                    }
+                    break;
+                case 6:
+                    menu.cadastroVeiculo();
+                    break;
 
             }//switch principal acaba aqui
 

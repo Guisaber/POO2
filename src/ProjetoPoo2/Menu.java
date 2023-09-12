@@ -5,6 +5,8 @@ import org.w3c.dom.ls.LSOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu <T> {
@@ -19,6 +21,7 @@ public class Menu <T> {
         System.out.println("3 - Listar pessoas cadastradas");
         System.out.println("4 - Listar empresas");
         System.out.println("5 - Alugar um veículo");
+        System.out.println("6 - Cadastrar veículo");
     }
 
     public void exibirMenuCadastroPessoa() {
@@ -26,23 +29,47 @@ public class Menu <T> {
         System.out.println("2 - Pessoa Jurídica");
     }
 
-    public void formulárioAluguelVeiculo() {
+    public void cadastroVeiculo() throws Exception {
+        VehicleService vehicleService = new VehicleService(VehicleRepository.getVehicleRepository());
         Scanner entrada = new Scanner(System.in);
+        System.out.println("Cadastrar veículo no sistema");
+        System.out.println("Qual o nome do veiculo?");
+        String nome = entrada.nextLine();
+        System.out.println("Qual a placa do veiculo?");
+        String placa = entrada.nextLine();
+        System.out.println("Qual o tamanho do veiculo? (Pequeno, medio, SUV)");
+        Tamanho tamanho = Tamanho.valueOf(entrada.nextLine().toUpperCase().trim());
+
+        vehicleService.RegisterVehicle(nome, placa, tamanho);
+
+        System.out.println("Veiculo cadastrado");
+
+    }
+
+    public boolean formulárioAluguelVeiculo(CadastroAluguel aluguel) {
+        VehicleService vehicleService = new VehicleService(VehicleRepository.getVehicleRepository());
+        Scanner entrada = new Scanner(System.in);
+        PessoaFisica pessoaFisica = null;
+        PessoaJuridica pessoaJuridica = null;
+        List<Vehicle> veiculos = new ArrayList<>();
         String nomeDoCarro, local;
         System.out.println("Digite seu CPF ou CNPJ (Somente números)");
         cpfOuCnpj = entrada.next();
         if (Pessoa.VerificarPessoa(cpfOuCnpj)) {
             CadastroPessoaFisica cadastroPessoaFisica = new CadastroPessoaFisica();
             if (cadastroPessoaFisica.consultarSeCpfExiste(cpf)) {
-                PessoaFisica pessoa = cadastroPessoaFisica.consultarPessoaFisica(cpfOuCnpj);
+                pessoaFisica = cadastroPessoaFisica.consultarPessoaFisica(cpfOuCnpj);
+
             } else {
                 System.out.println("Cpf inválido");
+
             }
 
         } else if (!Pessoa.VerificarPessoa(cpfOuCnpj)) {
             CadastroPessoaJuridica cadastroPessoaJuridica = new CadastroPessoaJuridica();
             if (cadastroPessoaJuridica.consultarSeCnpjExiste(cpfOuCnpj)) {
-                PessoaJuridica pessoa = cadastroPessoaJuridica.consultarPessoaJuridica(cpfOuCnpj);
+                pessoaJuridica = cadastroPessoaJuridica.consultarPessoaJuridica(cpfOuCnpj);
+
             } else {
                 System.out.println("Cnpj inválido");
             }
@@ -50,13 +77,24 @@ public class Menu <T> {
         }
         System.out.println("Digite o nome do carro desejado: ");
         nomeDoCarro = entrada.next();
+        veiculos = vehicleService.veiculosDisponiveisPeloNome(nomeDoCarro);
+        Vehicle veiculo = veiculos.get(0);
 
         System.out.println("Digite o Local de retirada do veículo: ");
         local = entrada.next();
-        System.out.println("Digite o dia e horario desejado: ");
-        data = entrada.next();
-        LocalDateTime dataHora = TransformarDataDeAluguel(data);
-        //falta pegar a objeto da classe carro e inserir na tabela AluguelVeiculos
+        LocalDateTime dataHora = TransformarDataDeAluguel();
+        if (pessoaJuridica != null){
+            retorno = aluguel.alugarVeiculo(pessoaJuridica,veiculo,dataHora,local);
+        }else{
+            retorno = aluguel.alugarVeiculo(pessoaFisica,veiculo,dataHora,local);
+        }
+        if (retorno) {
+            veiculo.setStatus(false);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 
@@ -67,7 +105,7 @@ public class Menu <T> {
         nome = entrada.nextLine();
         System.out.print("\nDigite seu endereço: ");
         endereco = entrada.nextLine();
-        System.out.print("\nDigite seu cpf (Somente números): ");
+        System.out.print("\nDigite seu cpf (Somente números) com 11 dígitos: ");
         cpf = entrada.next();
         System.out.print("\nEntre com a data de nascimento (dd/mm/yyyy): \n");
         data = entrada.next();
@@ -114,7 +152,7 @@ public class Menu <T> {
         nome = entrada.nextLine();
         System.out.print("\nDigite o endereço da empresa: ");
         endereco = entrada.nextLine();
-        System.out.print("\nDigite o CNPJ da empresa (Somente números): ");
+        System.out.print("\nDigite o CNPJ da empresa (Somente números) com 14 dígitos: ");
         cnpj = entrada.next();
         retorno = cadastroEmpresa.cadastrarEmpresa(nome, endereco, cnpj);
         if (retorno) {
@@ -156,9 +194,10 @@ public class Menu <T> {
         }
     }
 
-    LocalDateTime TransformarDataDeAluguel(String input) {
-        try (Scanner scanner = new Scanner(input)) {
-            String dateString = scanner.next();
+    LocalDateTime TransformarDataDeAluguel() {
+        System.out.println("Digite o dia e horario desejado (dd/MM/yyyy HH:mm:ss) :");
+        try (Scanner scanner = new Scanner(System.in)) {
+            String dateString = scanner.nextLine();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             return LocalDateTime.parse(dateString, formatter);
         }
