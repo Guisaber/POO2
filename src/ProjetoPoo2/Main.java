@@ -1,10 +1,9 @@
 package ProjetoPoo2;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Scanner entrada = new Scanner(System.in);
         CadastroPessoaFisica cadastroPessoa = new CadastroPessoaFisica();
         CadastroPessoaJuridica cadastroEmpresa = new CadastroPessoaJuridica();
         AluguelVeiculosRepositorio aluguelVeiculos = new AluguelVeiculosRepositorio();
@@ -12,15 +11,15 @@ public class Main {
         boolean alterado;
         Menu menu = new Menu();
         int opcao;
-        do {
-            menu.exibirMenuInicial();
-            opcao = entrada.nextInt();
-            switch (opcao) {
-                case 1:
-                    boolean resultadoCadastro;
-                    menu.exibirMenuCadastroPessoa();
-                    opcao = entrada.nextInt();
-                    if (opcao == 1){
+            do {
+                menu.exibirMenuInicial();
+                opcao = Integer.parseInt(CapturadorDeEntrada.nextLine());
+                switch (opcao) {
+                    case 1:
+                        boolean resultadoCadastro;
+                        menu.exibirMenuCadastroPessoa();
+                        opcao = Integer.parseInt(CapturadorDeEntrada.nextLine());;
+                        if (opcao == 1) {
                             resultadoCadastro = menu.cadastroPessoaFisica(cadastroPessoa);
                             if (resultadoCadastro) {
                                 System.out.println("Cadastro realizado com sucesso!\n");
@@ -29,63 +28,61 @@ public class Main {
                                 System.out.println("Cpf existente na base\n");
                             }
 
-                    }else if (opcao == 2){
-                        resultadoCadastro = menu.cadastroPessoaJuridica(cadastroEmpresa);
-                        if (resultadoCadastro) {
-                            System.out.println("Cadastro realizado com sucesso!\n");
-                            PessoaJuridicaRepositorio.listarPessoasJuridicas();
+                        } else if (opcao == 2) {
+                            resultadoCadastro = menu.cadastroPessoaJuridica(cadastroEmpresa);
+                            if (resultadoCadastro) {
+                                System.out.println("Cadastro realizado com sucesso!\n");
+                                PessoaJuridicaRepositorio.listarPessoasJuridicas();
+                            } else {
+                                System.out.println("Cnpj existente na base\n");
+                            }
+
                         } else {
-                            System.out.println("Cnpj existente na base\n");
+                            System.out.println("Opção inválida");
                         }
+                        break;
+                    case 2:
 
-                    }else{
-                        System.out.println("Opção inválida");
-                    }
-                    break;
-                case 2:
-
-                    menu.exibirMenuCadastroPessoa();
-                    opcao = entrada.nextInt();
-                        if (opcao == 1){
+                        menu.exibirMenuCadastroPessoa();
+                        opcao = Integer.parseInt(CapturadorDeEntrada.nextLine());;
+                        if (opcao == 1) {
                             alterado = menu.alteracaoPessoaFisica(cadastroPessoa);
                             if (alterado) {
                                 System.out.println("Cadastro atualizado com sucesso!\n");
                                 PessoaFisicaRepositorio.listarPessoas();
                             }
 
-                    } else if (opcao == 2) {
+                        } else if (opcao == 2) {
                             alterado = menu.alteracaoPessoaJuridica(cadastroEmpresa);
                             if (alterado) {
                                 System.out.println("Cadastro atualizado com sucesso!\n");
                                 PessoaJuridicaRepositorio.listarPessoasJuridicas();
                             }
-                        }
-                        else {
+                        } else {
                             System.out.println("Opção inválida");
                         }
-                    break;
-                case 3:
-                    PessoaFisicaRepositorio.listarPessoas();
-                    break;
-                case 4:
-                    PessoaJuridicaRepositorio.listarPessoasJuridicas();
-                    break;
-                case 5:
-                    alterado = menu.formulárioAluguelVeiculo(cadastroAluguel);
-                    if (alterado) {
-                        System.out.println("Aluguel realizado com sucesso");
-                        AluguelVeiculosRepositorio.listarAlugueis();
-                    }
-                    break;
-                case 6:
-                    menu.cadastroVeiculo();
-                    break;
+                        break;
+                    case 3:
+                        PessoaFisicaRepositorio.listarPessoas();
+                        break;
+                    case 4:
+                        PessoaJuridicaRepositorio.listarPessoasJuridicas();
+                        break;
+                    case 5:
+                        alterado = menu.formulárioAluguelVeiculo(cadastroAluguel);
+                        if (alterado) {
+                            System.out.println("Aluguel realizado com sucesso");
+                            AluguelVeiculosRepositorio.listarAlugueis();
+                        }
+                        break;
+                    case 6:
+                        menu.cadastroVeiculo();
+                        break;
 
-            }//switch principal acaba aqui
+                }//switch principal acaba aqui
 
 
-
-        }while(opcao != 0);
+            } while (opcao != 0);
     }
 
 }
