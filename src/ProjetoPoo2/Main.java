@@ -69,7 +69,7 @@ public class Main {
                         PessoaJuridicaRepositorio.listarPessoasJuridicas();
                         break;
                     case 5:
-                        alterado = menu.formulárioAluguelVeiculo(cadastroAluguel);
+                        alterado = menu.formularioAluguelVeiculo(cadastroAluguel);
                         if (alterado) {
                             System.out.println("Aluguel realizado com sucesso");
                             AluguelVeiculosRepositorio.listarAlugueis();
@@ -77,6 +77,9 @@ public class Main {
                         break;
                     case 6:
                         menu.cadastroVeiculo();
+                        break;
+                    case 7:
+                        menu.devolucaoDeVeiculo(cadastroAluguel);
                         break;
 
                 }//switch principal acaba aqui

@@ -22,6 +22,7 @@ public class Menu <T> {
         System.out.println("4 - Listar empresas");
         System.out.println("5 - Alugar um veículo");
         System.out.println("6 - Cadastrar veículo");
+        System.out.println("7 - Devolver o veículo");
     }
 
     public void exibirMenuCadastroPessoa() {
@@ -45,12 +46,14 @@ public class Menu <T> {
 
     }
 
-    public boolean formulárioAluguelVeiculo(CadastroAluguel aluguel) {
+    public boolean formularioAluguelVeiculo(CadastroAluguel aluguel) {
         VehicleService vehicleService = new VehicleService(VehicleRepository.getVehicleRepository());
         PessoaFisica pessoaFisica = null;
         PessoaJuridica pessoaJuridica = null;
         List<Vehicle> veiculos = new ArrayList<>();
         String nomeDoCarro, local;
+        System.out.println("Digite o id da locação:");
+        int idLocacao = Integer.parseInt(CapturadorDeEntrada.nextLine());
         System.out.println("Digite seu CPF ou CNPJ (Somente números)");
         cpfOuCnpj = CapturadorDeEntrada.nextLine();
         if (Pessoa.VerificarPessoa(cpfOuCnpj)) {
@@ -82,9 +85,9 @@ public class Menu <T> {
         local = CapturadorDeEntrada.nextLine();
         LocalDateTime dataHora = transformarDataDeAluguel();
         if (pessoaJuridica != null){
-            retorno = aluguel.alugarVeiculo(pessoaJuridica,veiculo,dataHora,local);
+            retorno = aluguel.alugarVeiculo(idLocacao,pessoaJuridica,veiculo,dataHora,local);
         }else{
-            retorno = aluguel.alugarVeiculo(pessoaFisica,veiculo,dataHora,local);
+            retorno = aluguel.alugarVeiculo(idLocacao,pessoaFisica,veiculo,dataHora,local);
         }
         if (retorno) {
             veiculo.setStatus(false);
@@ -93,6 +96,26 @@ public class Menu <T> {
             return false;
         }
 
+    }
+
+
+    public void devolucaoDeVeiculo(CadastroAluguel cadastroAluguel) {
+        System.out.println("Digite o id da locação do veículo");
+        int id = Integer.parseInt(CapturadorDeEntrada.nextLine());
+        if(cadastroAluguel.consultarLocacaoExiste(id)) {
+            AluguelVeiculos aluguelParaFinalizar = cadastroAluguel.consultarLocacao(id);
+            System.out.println("Digite 'fisica' para Pessoa Fisica ou 'juridida' para Pessoa Juridica");
+            String tipoDePessoa = CapturadorDeEntrada.nextLine();
+            LocalDateTime dataDevolucao = transformarDataDeAluguel();
+
+
+            DevolucaoVeiculo devolucaoVeiculo = new DevolucaoVeiculo(aluguelParaFinalizar, dataDevolucao);
+            System.out.println(devolucaoVeiculo);
+
+            devolucaoVeiculo.calculoPagamento(tipoDePessoa);
+        } else {
+            System.out.println("Locação não encontrada");
+        }
     }
 
 
